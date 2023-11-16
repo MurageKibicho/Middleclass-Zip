@@ -19,9 +19,7 @@ Small files are cheaper to send and travel fast on slow networks.
 
 
 ## Inspiration
-Outside the United States, internet is slow and wildy expensive.
-\
-For instance, I was charged 10 dollars for 1 GB while in Kenya. (Local ISPs sell small 10MB bundles to hide the true cost) 
+Outside the United States, internet is slow and wildy expensive. For instance, I was charged 10 dollars for 1 GB while in Kenya. (Local ISPs sell small 10MB bundles to hide the true cost) 
 Every kilobyte counts!
 
 \
@@ -30,9 +28,9 @@ It was frustrating to use my favorite drawing software because the files were un
 Upon enquiry, the devs attributed their compression choice to *"Support for low-end devices that can't handle lots of computations"*.
 
 \
-I found concerning their desire for "inclusivity" superceded my need for fast internet. It gave vibes analogous to California's *"Let's not teach algebra in public schools because math is elitist"*
+Their desire for "inclusivity" superceded my need for fast internet. It gave vibes analogous to California's *"Let's not teach algebra in public schools because math is elitist"*
 
-Indeed, there's a tradeoff between smaller file sizes and intensive computation. 
+There's a tradeoff between smaller file sizes and intensive computation. 
 However, I'd rather have my 1000$ Iphone perform extra computations than wait an hour for my YouTube video to buffer in 360p.
 
 I made this repo to gauge <ins>interest in making the internet faster for the middle class </ins>(users with mid to high-end devices).
