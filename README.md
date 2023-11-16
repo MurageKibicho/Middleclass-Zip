@@ -15,16 +15,15 @@ Small files are cheaper to send and travel fast on slow networks.
 - You've got a mid to high-end phone or laptop.
 - You're stuggling with unbearably slow internet. 
 - Your internet service provider(ISP) charges you exorbitant rates per megabyte.
-- You're fine performing intensive, battery-consuming calculations on your phone. 
+- You're fine performing intensive, battery-consuming calculations on your device. 
 
 
 ## Inspiration
 Outside the United States, internet is slow and wildy expensive. For instance, I was charged 10 dollars for 1 GB while in Kenya. (Local ISPs sell small 10MB bundles to hide the true cost) 
 Every kilobyte counts!
 
-\
 
-It was frustrating to use my favorite drawing software because the files were unbearably large. The software authors chose to use Gzip and not better methods.
+It was frustrating to use my favorite drawing software because the files were unbearably large. The authors chose to use Gzip and not better methods.
 Upon enquiry, the devs attributed their compression choice to *"Support for low-end devices that can't handle lots of computations"*.
 
 \
