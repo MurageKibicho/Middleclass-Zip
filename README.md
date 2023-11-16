@@ -1,2 +1,2 @@
 # Middleclass Zip
- Smaller files for the Middle Class
+(Join the mailing list)[https://www.fileforma.com/middleclass]
