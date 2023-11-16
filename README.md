@@ -35,7 +35,7 @@ I found concerning their desire for "inclusivity" superceded my need for fast in
 Indeed, there's a tradeoff between smaller file sizes and intensive computation. 
 However, I'd rather have my 1000$ Iphone perform extra computations than wait an hour for my YouTube video to buffer in 360p.
 
-I made this repo to gauge interest in making the internet faster for the middle class (users with mid to high-end devices).
+I made this repo to gauge <ins>interest in making the internet faster for the middle class </ins>(users with mid to high-end devices).
 \
 
 
