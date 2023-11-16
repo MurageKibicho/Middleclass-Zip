@@ -11,6 +11,10 @@ We make internet files smaller by performing intensive computations on your devi
 \
 Small files are cheaper to send and travel fast on slow networks.
 
+### Technical Overview
+We find uncompressed data inside files then run the data through 7Zip. Further compression to come ✨
+
+
 ## Target audience
 - You've got a mid to high-end phone or laptop.
 - You're stuggling with unbearably slow internet. 
