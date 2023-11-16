@@ -1,15 +1,22 @@
 # Middleclass Zip
 ## Faster, cheaper internet for the middle class
-[Join the mailing list](https://www.fileforma.com/middleclass)
+### [Join the mailing list](https://www.fileforma.com/middleclass)
 
 
 ### Disclaimer
 Data compression is a solved problem. No ✨ magical algorithm ✨ exists to make files infinitely small. Also, you can't compress random data.
 
+### How It Works
+We make internet files smaller by performing intensive computations on your device. 
+\
+Small files are cheaper to send and travel fast on slow networks.
 
 ## Target audience
-You've got a mid to high-end phone or laptop and you're stuggling with unbearably slow internet. We make internet files smaller by performing intensive computations on your device. 
-Smaller file sizes travel fast on slow networks. Smaller files are cost less money to send too!
+- You've got a mid to high-end phone or laptop.
+- You're stuggling with unbearably slow internet. 
+- Your internet service provider(ISP) charges you exorbitant rates per megabyte.
+- You wouldn't mind performing intensive, battery-consuming calculations on your phone. 
+
 
 ## Inspiration
 Outside the United States, internet is slow and wildy expensive. For instance, while I was in Kenya, I was charged 10 dollars for 1 GB (ISPs in these countries sell internet packets in small 10MB bundle sizes) 
@@ -17,7 +24,7 @@ Every kilobyte counts!
 
 \
 
-I was frustrating to learn that my favorite drawing software used GZIP and not better algos.
+It was frustrating to learn that my favorite drawing software used GZIP and not better algos.
 Upon enquiry, the devs attributed their compression choice to *"Support for low-end devices that can't handle lots of computations"*.
 
 \
