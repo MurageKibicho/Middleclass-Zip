@@ -2,6 +2,8 @@
 ## Proof of Concept
 We remove 13 bytes of uncompressed header from a jpeg file.
 
+## Work in Progress
+- Remove header from mp4 video file.
 
 ## How to run
  - Download JPEG folder
