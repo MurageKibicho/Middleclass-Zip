@@ -26,14 +26,8 @@ We find uncompressed data inside files then run the data through 7Zip. Further c
 Outside the United States, internet is slow and wildy expensive. For instance, I was charged 10 dollars for 1 GB while in Kenya. (Local ISPs sell small 10MB bundles to hide the true cost). So every kilobyte counts!
 
 
-It was frustrating to use my favorite drawing software because the files were unbearably large. The authors chose to use Gzip and not better methods.
-Upon enquiry, the devs attributed their compression choice to *"Support for low-end devices that can't handle lots of computations"*.
-
-\
-Their desire for "inclusivity" superceded my need for fast internet. It gave vibes analogous to California's *"Let's not teach algebra in public schools because math is elitist"*
-
 There's a tradeoff between smaller file sizes and intensive computation. 
-However, I'd rather have my 1000$ Iphone perform extra computations than wait an hour for my YouTube video to buffer in 360p.
+However, I'd rather have my 2000$ Mac perform extra computations than wait an hour for my YouTube video to buffer in 360p.
 
 I made this repo to gauge <ins>interest in making the internet faster for the middle class </ins>(users with mid to high-end devices).
 

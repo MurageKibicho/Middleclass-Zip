@@ -3,8 +3,20 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
 #include "dct.h"
+#include "gmp.h"
 
-
+double *logLookup;
+double *GenerateLookupTable(int size)
+{
+	int length = 1 << size;
+	double increase = 1/(double)length;
+	double *table = calloc(length, sizeof(double));
+	for(int i = 1; i < length; i++)
+	{
+		table[i] = log2(1 + increase*i);
+	}
+	return table;	
+}
 void RGBtoYCBCR(unsigned char *r, unsigned char *g, unsigned char *b)
 {
 	unsigned char y  =0;unsigned char cb =0;unsigned char cr =0;	
@@ -54,6 +66,122 @@ void ConvertPixelsToRGB(unsigned char *image, int arrayLength)
 	}
 }
 
+void AddBinary(int number, int *array, int startIndex){int j = startIndex + 7;for(int i = 0; i < 8; i++, j--){if(number % 2 == 0){array[j] = 0;}else{array[j] = 1;}number /= 2;}}
+double FileForma_GammaApproximation(double n, double k){double result = 0;result = (lgamma(n+1) -lgamma(n-k+1) -lgamma(k+1)) / log(2);return result;}
+int FindLargestNLogarithm(double searchLog, int base){int max = 1 << 30;int min = 0;int mid = 0;double currentLog = 0;double k = (double)base;while(min <= max){mid = min + (max - min) / 2;currentLog = FileForma_GammaApproximation((double)mid, k);if(currentLog < searchLog){min = mid + 1;}else{max = mid - 1;}}return max;}
+double Find_Log_MPZ_Double(mpz_t x){signed long int ex;const double di = mpz_get_d_2exp(&ex, x);return ( (log(di) + log(2) * (double) ex) /log(2));}
+void QuantizeArray(int length, int *array, int number){for(int i = 0; i < length; i++){array[i] /= number;}}
+void PrintArray(int length, int *array){for(int i = 0; i < length; i++){printf("%3d,", array[i]);} printf("\n");}
+void BinaryToInteger(int binaryLength, int *binary, mpz_t integer, int *oneCount)
+{
+	*oneCount = 1;
+	mpz_t binomialCoefficient;
+	mpz_t sumHolder;
+	mpz_init(sumHolder); mpz_init(binomialCoefficient);
+	for(int i = 0; i < binaryLength; i++)
+	{
+		*oneCount += binary[i];
+		if(binary[i]==1)
+		{
+			mpz_bin_uiui(binomialCoefficient, i, *oneCount);
+			mpz_add(sumHolder, sumHolder, binomialCoefficient);
+		}
+	}
+	mpz_set(integer,sumHolder);
+	mpz_clear(sumHolder); mpz_clear(binomialCoefficient);
+}
+
+void PrintFileBinary(int *file, int fileLength)
+{
+	int oneCount = 0;
+	for(int i = 0; i < fileLength; i+=8)
+	{
+		printf("(%d)", i / 8);
+		for(int j = 0; j < 8; j++)
+		{	
+			oneCount += file[i+j];
+			printf("%d", file[i+j]);
+		}
+		//break;
+		printf("(%d %d : %.3f)\n", fileLength, oneCount, FileForma_GammaApproximation((double) fileLength, (double) oneCount));
+	}
+}
+void IntegerToBinary(mpz_t integer, int originalLength, int newOneCount, int *binaryHolder)
+{
+	double currentLogValue = 0.0f; int n = 0; int k = newOneCount;
+	mpz_t binomialCoefficient;mpz_init(binomialCoefficient);
+	while(k > 0)
+	{
+		currentLogValue = Find_Log_MPZ_Double(integer); 
+		n =  FindLargestNLogarithm(currentLogValue, k);
+		//assert(n > -1);
+		if(n < 0)
+		{
+			//gmp_printf("%Zd \n",integer);
+			break;
+			//exit(1);
+		}
+		//mpz_setbit(binaryHolder, n);
+		
+		mpz_bin_uiui(binomialCoefficient, n, k);
+		mpz_sub(integer, integer, binomialCoefficient);
+		//gmp_printf("%Zd\n",integer);
+		//printf("%d %d\n",n/3300, k);
+		binaryHolder[k-1] = n;
+		k-=1;
+	}
+	mpz_clear(binomialCoefficient);
+}
+
+#define bitLength 8
+
+//FindRange function
+void DequantizeArray(int oneCount, int length, int *array, int number)
+{
+	printf(" \n");
+	for(int i = 0; i < length; i++){array[i] *= number;}
+	double a = FileForma_GammaApproximation((double) array[length-1],(double)length) ;
+	double b = FileForma_GammaApproximation((double) array[length-2],(double)length-1);
+	double currentLog = 0;
+	for(int i = 0; i < 1; i++)
+	{
+		for(int j = 0; j < 1 << bitLength; j++)
+		{
+			printf("%d %.3f\n", j, logLookup[j]);
+		}
+		/*for(int j = 0 ; j < number; j++)
+		{
+			currentLog = FileForma_GammaApproximation((double) array[length-1-i]+j,(double)length-i);
+			printf("%d : %3d %d %.3f\n",j, array[length-1-i]+j, length-i, currentLog);
+		}*/
+	}
+	printf("%.3f %.3f %d %d\n",a,  b,array[length-1],length);
+}
+
+void EncodeYComponent(float *component)
+{
+	mpz_t integer; mpz_init(integer);
+
+	int binary[64*8] = {0};int oneCount = 0;
+	for(int i = 0; i < 64; i++)
+	{
+		AddBinary((int) component[i], binary, i * 8);
+	}
+	BinaryToInteger(64*8, binary, integer, &oneCount);
+	
+	int newOneCount = 30;
+	int *binaryHolder = calloc(newOneCount, sizeof(int));
+	int newBinaryLength = FindLargestNLogarithm((double) 64 * 8, newOneCount);
+	
+	printf("(%d %d) - (%d %d)\n", 64*8, oneCount,newBinaryLength, newOneCount);
+	IntegerToBinary(integer, 64*8, newOneCount, binaryHolder);
+	PrintArray(newOneCount,binaryHolder);
+	QuantizeArray(newOneCount,binaryHolder,3300);
+	DequantizeArray(oneCount, newOneCount,binaryHolder,3300);
+	PrintArray(newOneCount,binaryHolder);
+	mpz_clear(integer);
+	free(binaryHolder);
+}
 
 
 void EncodeImage(unsigned char *image, int imageLength)
@@ -68,19 +196,12 @@ void EncodeImage(unsigned char *image, int imageLength)
 		j+=1;
 		if(j == 64)
 		{
+			printf("\n");Print3(componentY);printf("\n");
+			EncodeYComponent(componentY);
+			int level = 5;
 			ForwardDCTComponent(componentCB);ForwardDCTComponent(componentCR);
-			int level = 62;
-			
-			Print3(componentY);printf("\n");
-			CBCRQuantization(componentY,level);
-			//CBCRQuantization(componentCB,level);CBCRQuantization(componentCR,level);
-			
-			Print3(componentY);printf("End\n\n");
-			//Print3(componentCB);printf("\n");
-			//Print3(componentCR);printf("\n\n\n");
-			
-			InverseDCTComponent(componentCB);InverseDCTComponent(componentCR);			
-						
+			CBCRQuantization(componentCB,level);CBCRQuantization(componentCR,level);
+			InverseDCTComponent(componentCB);InverseDCTComponent(componentCR);									
 			for(int l = 0; l < 64; l++)
 			{
 				image[k]   = (unsigned char) componentY[l];
@@ -88,7 +209,7 @@ void EncodeImage(unsigned char *image, int imageLength)
 				image[k+2] = (unsigned char) componentCR[l];
 				k+=3;
 			}
-			//break;
+			break;
 			j = 0; count += 1;
 		}
 	}
@@ -110,9 +231,12 @@ void OpenImage(char *fileName)
 	stbi_image_free(image);
 }
 
+
 int main()
 {
-	char *fileName = "sample2.jpg";
+	logLookup = GenerateLookupTable(bitLength);
+	char *fileName = "sample1.jpg";
 	OpenImage(fileName);
+	free(logLookup);
 	return 0;
 }
