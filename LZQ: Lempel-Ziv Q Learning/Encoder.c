@@ -85,9 +85,11 @@ int main()
 		IncreasePath(rows, columns, qTable, matrix);	
 		matchCount = Compare2dMatrix(rows, columns, matrix, matrixCopy);	
 		printf("%d\n",matchCount);
-		if(matchCount == 64){
-		
-		counter += 1;}
+		if(matchCount == 64)
+		{
+			
+			counter += 1;
+		}
 	
 	}
 	printf("%d %d\n",counter,totalSize);
