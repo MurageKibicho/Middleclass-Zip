@@ -3,7 +3,8 @@
 int main()
 {
 	/*Open file as a binary string*/
-	char *fileName = "build.jpg";
+	/*Works best on image and video files bigger than 2 MB*/
+	char *fileName = "a.mkv";
 	int fileSize = GetFileSize(fileName)*8;
 	int *fileContent  = calloc(fileSize, sizeof(int)); 
 	int c = 0;int sampleIndex = 0;FILE *fp = fopen(fileName, "rb");assert(fp != NULL);while((c = fgetc(fp)) != EOF){AddBinary(c, fileContent, sampleIndex * 8);sampleIndex+= 1;}fclose(fp);
@@ -54,7 +55,8 @@ int main()
 	
 	
 	//DecodeToWriteLeft(stepSize, lookupTable, spaceFound, toWriteLeftLength, toWriteLeft);
-	printf("%d %d %d %d %d\n",leftBitSize,spaceFound,leftBitSize - spaceFound,gainCounter, rightArrayLength);
+	//printf("%d %d %d %d %d\n",leftBitSize,spaceFound,leftBitSize - spaceFound,gainCounter, rightArrayLength);
+	printf("Saved %d bits!\n",gainCounter);
 	/*Free memory*/
 	DestroyArray(toWriteLeftLength, toWriteLeft);
 	DestroyArray(leftArrayLength, leftArray);
