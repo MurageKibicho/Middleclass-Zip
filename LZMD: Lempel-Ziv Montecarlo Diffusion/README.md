@@ -30,3 +30,18 @@ We built a mathematical model to simulate this mixture. We :
 - Find large empty spaces in the Left part.
 - Find small integers in the Right part.
 - Place the small integers inside the large spaces.
+
+### How to use
+This is work in progress. At the moment, Encoder.c displays the total number of bits saved. I'll add fileio and Decoder.c if people are interested
+```
+Works best on ZIP, MP4 and JPEG files whose size is greater than 2 MB
+Only tested on Ubuntu
+Change filename in Encoder.c
+*/
+
+Run: gcc Encoder.c -lgmp -lm -o Encoder.o && ./Encoder.o
+Output : "N bits saved!"
+
+//
+ 
+```

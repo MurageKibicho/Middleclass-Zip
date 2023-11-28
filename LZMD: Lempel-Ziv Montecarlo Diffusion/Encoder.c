@@ -49,7 +49,11 @@ int main()
 	int toWriteLeftLength = leftArrayLength + gainCounter;
 	MpzWithIndex *toWriteLeft = PrepareToWriteLeft(toWriteLeftLength, leftBitSize, leftArrayLength, leftArray, rightBitSize, rightArrayLength, rightArray,stepSize, lookupTable);
 
-	DecodeToWriteLeft(stepSize, lookupTable, spaceFound, toWriteLeftLength, toWriteLeft);
+	assert(leftBitSize % 8 == 0);
+	WriteToFileLeft(toWriteLeftLength, toWriteLeft);
+	
+	
+	//DecodeToWriteLeft(stepSize, lookupTable, spaceFound, toWriteLeftLength, toWriteLeft);
 	printf("%d %d %d %d %d\n",leftBitSize,spaceFound,leftBitSize - spaceFound,gainCounter, rightArrayLength);
 	/*Free memory*/
 	DestroyArray(toWriteLeftLength, toWriteLeft);

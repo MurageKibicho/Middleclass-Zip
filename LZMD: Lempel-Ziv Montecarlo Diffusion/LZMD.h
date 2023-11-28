@@ -289,7 +289,12 @@ void DecodeToWriteLeft(int stepSize, MpzWithIndex *lookupTable, int spaceFound, 
 
 	//Sort lookupTable by index
 	qsort(lookupTable, stepSize, sizeof(MpzWithIndex), MpzWithIndexCompareIndex);
-
-
 }
 
+void WriteToFileLeft(int toWriteLeftLength, MpzWithIndex *toWriteLeft)
+{
+	for(int i = 0 ; i < toWriteLeftLength; i++)
+	{
+		
+	}
+}

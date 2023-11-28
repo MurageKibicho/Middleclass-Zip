@@ -4,7 +4,7 @@
 #include <math.h>
 
 void qLearning(int rows, int cols, int actions, int episodes, float alpha, float gamma, float epsilon, int penalty_threshold, int **matrix, int **qTable) {
-    srand(time(NULL));
+    srand(98875);
 
     int getState(int x, int y) {return x * cols + y;}
 
@@ -12,7 +12,7 @@ void qLearning(int rows, int cols, int actions, int episodes, float alpha, float
         if ((double)rand() / RAND_MAX < epsilon) {return rand() % actions; } else {if (qTable[state][0] > qTable[state][1]) {return 0; /* Move right*/}else{return 1; /*Move down*/}}}
 
     int getReward(int x, int y, int penalty_threshold, int **matrix) {
-        if (matrix[x][y] <= penalty_threshold) {return -10; /* Apply penalty*/} else {return matrix[x][y]; /*Normal reward for other cells*/}}
+        if (matrix[x][y] <= penalty_threshold) {return -1; /* Apply penalty*/} else {return matrix[x][y]; /*Normal reward for other cells*/}}
     for (int i = 0; i < episodes; ++i) {
         int currentState = getState(0, 0);
 
@@ -30,7 +30,7 @@ void qLearning(int rows, int cols, int actions, int episodes, float alpha, float
 }
 
 
-void ReducePath(int rows, int cols, int **qTable, int **matrix) {
+void ReducePath(int rows, int cols, int **qTable, int **matrix, int difference) {
     int getState(int x, int y, int cols) {
         return x * cols + y;
     }
@@ -60,14 +60,14 @@ void ReducePath(int rows, int cols, int **qTable, int **matrix) {
 
         if (x >= 0 && x < rows && y >= 0 && y < cols) {
             // Perform operations on matrix within bounds
-             if(matrix[x][y]-1 < 0){break;}
-             matrix[x][y] -= 1;
+             if(matrix[x][y]-difference < 0){break;}
+             matrix[x][y] -= difference;
 
         }
     }
 }
 
-void IncreasePath(int rows, int cols, int **qTable, int **matrix) {
+void IncreasePath(int rows, int cols, int **qTable, int **matrix, int difference) {
     int getState(int x, int y, int cols) {
         return x * cols + y;
     }
@@ -97,7 +97,8 @@ void IncreasePath(int rows, int cols, int **qTable, int **matrix) {
 
         if (x >= 0 && x < rows && y >= 0 && y < cols) {
             // Perform operations on matrix within bounds
-             matrix[x][y] += 1;
+             if(matrix[x][y]+difference > 255){break;}
+             matrix[x][y] += difference;
         }
     }
 }
@@ -132,10 +133,10 @@ void PrintBestPath(int rows, int cols, int **qTable, int **matrix) {
 
         if (x >= 0 && x < rows && y >= 0 && y < cols) {
             // Perform operations on matrix within bounds
-		printf("%3d,", matrix[x][y]);
+		//printf("%3d,", matrix[x][y]);
         }
     }
-    printf("\n");
+    //printf("\n");
 }
 
 
