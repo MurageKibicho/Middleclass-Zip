@@ -25,7 +25,7 @@ A mixture of equal parts water and ethanol presents a [volume 10% less](https://
 Ethanol molecules are smaller than water molecules. When mixed, small ethanol molecules [occupy the spaces between ](https://www.thoughtco.com/miscibility-of-fluids-608180) large water molecules. 
 
 \
-We built a mathematical model to simulate this mizture. We :
+We built a mathematical model to simulate this mixture. We :
 - Split a compressed file into two parts - Left and Right analogous to Water and Ethanol.
 - Find large empty spaces in the Left part.
 - Find small integers in the Right part.
