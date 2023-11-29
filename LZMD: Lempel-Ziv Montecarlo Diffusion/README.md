@@ -1,22 +1,17 @@
 ## LZMD : Lempel-Ziv Montecarlo Diffusion
-
+[Join the mailing list](https://patreon.com/user?u=108521050&utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=creatorshare_creator&utm_content=join_link)
 ### Update:
 I got rejected from YCombinator last week, ZFellows in August and got ghosted by VCs inbetween. 
 
-I took a gap year to build this and burnt through my savings. Now it's open-source lol.
-\
-Please reach out - murage@fileforma.com - if you want to angel/lead my pre-seed round. 
-\
-Here's my [pitch deck](https://docs.google.com/presentation/d/1jzcLHrZaQfi0oOKk9JtY_K_IfVrcVjTeQgZzMfiYNm4/edit)
+I took a gap year to build this. Now it's open-source lol. I'll add fileio and Decoder.c if people are interested.
 
-I aspire to get terms similar to YCombinator.
 ### Disclaimer
 Data compression is a solved problem. No ✨ magical algorithm ✨ makes files infinitely small. Also, you can't compress random data.
 
 ### How It Works
 We built a custom diffusion model to *simulate the weird change in volume when water and alcohol mix*.
 
-It's a navier-stokes solver whose solutions lead to smaller file sizes. This is **NOT** a data compressor. We don't find probabilites.  
+It's a navier-stokes solver whose solutions lead to smaller file sizes. This is **NOT** a data compressor. We don't find probabilities.  
 \
 
 ### Technical Overview
@@ -34,6 +29,7 @@ We built a mathematical model to simulate this mixture. We :
 ### How to use
 This is work in progress. At the moment, Encoder.c displays the total number of bits saved. I'll add fileio and Decoder.c if people are interested
 ```
+/*
 Works best on ZIP, MP4 and JPEG files whose size is greater than 2 MB
 Only tested on Ubuntu
 Change filename in Encoder.c
